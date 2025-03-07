@@ -1,0 +1,430 @@
+/* General Container Styling */
+.founders-container {
+    min-height: 100vh;
+    padding-left: 65px;
+    padding-right: 30px;
+}
+
+/* Header Styling */
+.founders-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.founders-header h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.add-founder-btn {
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-founder-btn:hover {
+    background: #0056b3;
+}
+
+/* Table Styling */
+.founders-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.founders-table th,
+.founders-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #222222;
+}
+
+.founders-table th {
+    background: linear-gradient(to bottom, #93d3f2, #c8edff);
+    color: #333;
+    border: none;
+}
+
+.founders-table tr:hover {
+    background: #f1f1f1;
+}
+
+/* Icons */
+.video-icon {
+    font-size: 16px;
+}
+
+/* Status Badge */
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.status-badge.active {
+    background: #28a745;
+    color: white;
+}
+
+.status-badge.inactive {
+    background: #dc3545;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .founders-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .founders-table th, .founders-table td {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+#founderHeader {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    top: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#founderTitleText {
+    font-family: Poppins, Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-size: 26px;
+    text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.5);
+    color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#new-founder {
+    margin: 0;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2), 0 -6px 20px rgba(255, 255, 255, 0.19);
+    padding: 0px 15px;
+    overflow: hidden;
+    color: #000 !important;
+    background: linear-gradient(to bottom, #93d3f2, #c8edff);
+    font-weight: 600;
+    height: 35px;
+    width: auto;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer;
+    border: none !important;
+    border-radius: 76px;
+}
+
+#new-founder:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px -6px rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+
+.founders-table-wrapper {
+    position: relative;
+    height: 80vh;
+    overflow-y: auto;
+    background: #252525bd;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+.founders-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.founders-table th,
+.founders-table td {
+    padding: 10px;
+    text-align: left;
+}
+
+.founders-table thead {
+    position: sticky;
+    top: 0;
+    background-color: #f5f5f5;
+    z-index: 1;
+}
+
+.table-overlay {
+    position: relative;
+}
+
+.table-overlay.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.no-data-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    text-align: center;
+}
+
+.no-data-image {
+    max-width: 250px;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+/* Remove hover effect when no data */
+.founders-table tbody tr:hover {
+    background: none;
+}
+
+/* Remove bottom border when no data */
+.founders-table tbody tr:only-child td {
+    border-bottom: none;
+}
+
+/* Overlay Styling */
+.founders-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Form Container */
+.founderForm-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.founderForm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #ccc;
+}
+
+.founderForm-header h3 {
+    margin: 0;
+    font-family: Poppins, Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.5);
+    color: #08020f;
+    display: flex;
+    align-items: center;
+}
+
+.founderForm-close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: rgb(145, 139, 139);
+    width: auto;
+    padding: 10px;
+    margin: 0;
+}
+
+.founderForm-close-btn:hover {
+    color: rgb(255, 99, 99);
+    background-color: transparent;
+}
+
+/* Form Groups */
+.founderForm-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.founderForm-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.founderForm-group input,
+.founderForm-group textarea,
+.founderForm-group select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    background: #fff;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.7);
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    color: #686868;
+}
+
+.founderForm-group input:focus,
+.founderForm-group textarea:focus,
+.founderForm-group select:focus {
+    border-color: #007bff;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2), inset -2px -2px 5px rgba(255, 255, 255, 0.8);
+}
+
+.founderForm-group textarea {
+    resize: none;
+    height: 80px;
+}
+
+/* Title and Funding in Row */
+.founderForm-row {
+    display: flex;
+    gap: 15px;
+}
+
+.founderForm-row .founderForm-group {
+    flex: 1;
+}
+
+input {
+    width: 90%;
+}
+
+/* Submit Button */
+.founderForm-submit-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.founderForm-submit-btn:hover {
+    background: #0056b3;
+}
+
+#addFounderForm {
+    margin-top: 20px;
+}
+
+/* Overlay for confirmation */
+.overlayConfirmation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Dialog Box */
+.status-confirmation-dialog {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Content inside dialog */
+.status-dialog-content p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Actions buttons */
+.status-dialog-actions button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.status-dialog-actions button:hover {
+    background-color: #0056b3;
+}
+
+/* Cancel button */
+.status-dialog-actions button:nth-child(2) {
+    background-color: #dc3545;
+}
+
+.status-dialog-actions button:nth-child(2):hover {
+    background-color: #c82333;
+}
+
+#trSelect {
+    padding: 5px;
+    border-radius: 6px;
+}
+
+.position, .founder-description {
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden;    /* Hide overflowed text */
+    text-overflow: ellipsis; /* Add ellipsis when text overflows */
+  }
+  
+  .position {
+    max-width: 150px; /* Adjust width of the position column */
+  }
+  
+  .founder-description {
+    max-width: 200px; /* Adjust width of the description column */
+    text-align: left; /* Optional: for better alignment of long descriptions */
+  }
+  

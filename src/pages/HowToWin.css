@@ -1,0 +1,83 @@
+.how-to-win-page {
+    color: white;
+    font-family: "Arial", sans-serif;
+    min-height: 100vh;
+    padding-top: 50px;
+  }
+  
+  .how-to-win-container {
+    text-align: center;
+    padding: 50px 20px;
+    transition: opacity 0.5s ease;
+    width: 100%;
+  }
+  
+  .hide-text {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  
+  .how-to-win-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .how-to-win-subtitle {
+    font-size: 1.2rem;
+    margin: 10px auto;
+    max-width: 800px;
+    color: white;
+
+  }
+  
+  .steps-container {
+    position: relative;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .step-card {
+    position: absolute;
+    width: 100%;
+    max-width: 1000px;
+    /* background: rgba(255, 255, 255, 0.05); */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 80px;
+    display: flex
+;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+    transform-origin: center;
+    margin-top: -43px;
+    border-color: #7a56d6;
+    box-shadow: 0 2px 5px 0 #7a56d6;
+  }
+  
+  .step-image img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .step-content {
+    text-align: left;
+  }
+  
+  .step-content h2 {
+    color: #9b59b6;
+    font-size: 1rem;
+  }
+  
+  .step-content h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .step-content p {
+    font-size: 1rem;
+  }
+  

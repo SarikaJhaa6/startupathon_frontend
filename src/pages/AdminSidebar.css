@@ -1,0 +1,168 @@
+/* Sidebar Styles */
+.sidebar {
+    width: 165px;    
+    height: 100vh;
+    background: #181818;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease-in-out;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 15px;
+  }
+  
+  .sidebar.collapsed {
+    width: 80px;
+  }
+  
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    flex-direction: column;
+    row-gap: 20px;
+}
+  
+  .user-icon {
+    color: #fff;
+    background: linear-gradient(145deg, #202020, #252525);
+    padding: 3px;
+    border-radius: 50%;
+    width: 100%;
+  }
+  
+  .admin-title {
+    margin-left: 12px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .sidebar.collapsed .admin-title {
+    display: none;
+  }
+  
+
+  
+  /* Sidebar Menu */
+  .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    cursor: pointer;
+    color: #ccc;
+    transition: 0.3s;
+    border-radius: 10px;
+    margin: 5px 0;
+  }
+  
+  .sidebar-item.active {
+    background: #333;
+    border-left: 3px solid #04c0fc;
+  }
+  
+  .sidebar-item:hover {
+    background: #222;
+  }
+  
+  .sidebar-item svg {
+    font-size: 22px;
+    margin-right: 12px;
+  }
+  
+  .sidebar.collapsed .sidebar-item {
+    justify-content: center;
+  }
+  
+  .sidebar.collapsed .sidebar-item span {
+    display: none;
+  }
+  
+  /* Expand/Collapse Button */
+  .toggle-btn {
+    position: absolute;
+    right: -15px;
+    top: 20px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #252525;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .toggle-btn:hover {
+    background: #333;
+  }
+  
+/* Adjust content margin based on sidebar state */
+.content {
+  margin-left: 165px;  /* Default when sidebar is expanded */
+  transition: margin-left 0.3s ease-in-out;
+  width: calc(100% - 165px);
+}
+
+.sidebar.collapsed + .content {
+  margin-left: 80px;
+  width: calc(100% - 80px);
+}
+
+/* AdminSidebar.css */
+
+/* Make sure the whole layout is flex-based */
+.admin-dashboard {
+  display: flex;
+  height: 100vh; /* Full height of viewport */
+  width: 100vw; /* Full width */
+  overflow: hidden;
+}
+
+
+
+
+/* MAIN CONTENT: Expands to take full width */
+.content {
+  flex: 1;
+  /* padding: 20px; */
+  /* background: #f4f6f9; */
+  transition: margin-left 0.3s ease-in-out;
+  overflow-y: auto;
+}
+
+.content.collapsed {
+  margin-left: 80px; /* Adjust when sidebar is collapsed */
+}
+
+/* Responsive Fix */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .sidebar.collapsed {
+    width: 60px;
+  }
+
+  .content {
+    margin-left: 200px;
+  }
+
+  .content.collapsed {
+    margin-left: 60px;
+  }
+}

@@ -1,0 +1,123 @@
+/* Sidebar Styles */
+.sidebar {
+    width: 165px;    
+    height: 100vh;
+    background: #181818;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease-in-out;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 15px;
+  }
+  
+  .sidebar.collapsed {
+    width: 80px;
+  }
+  
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    flex-direction: column;
+    row-gap: 20px;
+}
+  
+  .user-icon {
+    color: #fff;
+    background: linear-gradient(145deg, #202020, #252525);
+    padding: 3px;
+    border-radius: 50%;
+    width: 100%;
+  }
+  
+  .admin-title {
+    margin-left: 12px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .sidebar.collapsed .admin-title {
+    display: none;
+  }
+  
+
+  
+  /* Sidebar Menu */
+  .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    cursor: pointer;
+    color: #ccc;
+    transition: 0.3s;
+    border-radius: 10px;
+    margin: 5px 0;
+  }
+  
+  .sidebar-item.active {
+    background: #333;
+    border-left: 3px solid #04c0fc;
+  }
+  
+  .sidebar-item:hover {
+    background: #222;
+  }
+  
+  .sidebar-item svg {
+    font-size: 22px;
+    margin-right: 12px;
+  }
+  
+  .sidebar.collapsed .sidebar-item {
+    justify-content: center;
+  }
+  
+  .sidebar.collapsed .sidebar-item span {
+    display: none;
+  }
+  
+  /* Expand/Collapse Button */
+  .toggle-btn {
+    position: absolute;
+    right: -15px;
+    top: 0;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #252525;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .toggle-btn:hover {
+    background: #333;
+  }
+  
+  /* Content Section */
+  .content {
+    margin-left: 260px;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+  }
+  
+  .sidebar.collapsed + .content {
+    margin-left: 80px;
+  }
+  

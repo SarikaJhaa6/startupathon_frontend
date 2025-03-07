@@ -1,0 +1,62 @@
+body {
+  background-image: linear-gradient(to bottom, #0a0111, #08020f, #08020f); /* Dark gradient from bottom to top */
+  color: white;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex; /* Makes the body a flex container */
+  justify-content: center; /* Centers the .video-section horizontally */
+  align-items: center; /* Centers the .video-section vertically */
+}
+
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(300, 2%, 23%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6a0dad;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8a2be2;
+}
+
+  aside {
+    width: 200px;
+    background: #ddd;
+    padding: 10px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+  }
+  @media (max-width: 768px) {
+    body {
+      flex-direction: column; /* Stack elements vertically on small screens */
+      align-items: stretch; /* Allow full width */
+    }
+  
+    aside {
+      width: 100%; /* Full width */
+      height: auto; /* Adjust height dynamically */
+      position: relative; /* Prevent overlap */
+      padding: 15px;
+      text-align: center;
+    }
+  
+    /* Adjust scrollbar for mobile */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+  
+    ::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+    }
+  }
+  
