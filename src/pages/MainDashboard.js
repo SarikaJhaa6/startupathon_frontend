@@ -560,10 +560,10 @@ function MainDashboard() {
 
       {/* Challenges Section */}
       <img 
-  src={challenges.image 
-    ? `https://startupathonbackend-production.up.railway.app${challenges.image}` 
-    : `/randomImages/logo${Math.floor(Math.random() * 9) + 1}.png`} 
-  alt={challenges.title} 
+  src={challenge.image 
+    ? `https://startupathonbackend-production.up.railway.app${challenge.image}` 
+    : "N/A"} 
+  alt={challenge.title} 
 />
 
       <div id='startupathon-guide' className="section-timeline-2">
