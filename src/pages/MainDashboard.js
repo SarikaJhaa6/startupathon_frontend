@@ -52,29 +52,66 @@ function MainDashboard() {
   // const showMoreRow = () => setVisibleRows((prev) => prev + 1);
   // const showLess = () => setVisibleRows(1);
   
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/challenges/visible')
-      .then(response => setChallenges(response.data))
-      .catch(error => console.error('Error fetching challenges:', error));
+  // useEffect(() => {
+  //   axios.get('http://localhost:5000/api/challenges/visible')
+  //     .then(response => setChallenges(response.data))
+  //     .catch(error => console.error('Error fetching challenges:', error));
 
+  //   const handleScroll = () => {
+  //     const steps = document.querySelectorAll('.timeline_item');
+  //     let currentStep = -1;  // Reset to no active step
+  //     steps.forEach((step, index) => {
+  //       const rect = step.getBoundingClientRect();
+  //       // Only update active step when the step is visible in the viewport (within 50% of the viewport)
+  //       if (rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2) {
+  //         currentStep = index;
+  //       }
+  //     });
+  //     setActiveStep(currentStep);
+  //   };
+
+  //   window.addEventListener('scroll', handleScroll);
+    
+  //   return () => window.removeEventListener('scroll', handleScroll);
+
+  // }, []);
+
+  useEffect(() => {
+    const fetchChallenges = async () => {
+      try {
+        const response = await axios.get(
+          'https://startupathonbackend-production.up.railway.app/api/challenges/visible'
+        );
+        setChallenges(response.data);
+      } catch (error) {
+        console.error('Error fetching challenges:', error);
+      }
+    };
+  
+    fetchChallenges();
+  
     const handleScroll = () => {
       const steps = document.querySelectorAll('.timeline_item');
-      let currentStep = -1;  // Reset to no active step
+      let currentStep = -1; // Reset to no active step
+  
       steps.forEach((step, index) => {
         const rect = step.getBoundingClientRect();
-        // Only update active step when the step is visible in the viewport (within 50% of the viewport)
+        // Update active step only when the step is within 50% of the viewport
         if (rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2) {
           currentStep = index;
         }
       });
+  
       setActiveStep(currentStep);
     };
-
+  
     window.addEventListener('scroll', handleScroll);
     
-    return () => window.removeEventListener('scroll', handleScroll);
-
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
+  
 
   useEffect(() => {
     const rewardsSection = document.querySelector('.rewards-section');
@@ -242,12 +279,15 @@ function MainDashboard() {
       setMessage({ type: "error", text: "Please enter an email." });
       return;
     }
-
+  
     setLoading(true);
     setMessage(null); // Reset message on new request
-
+  
     try {
-      const response = await axios.post("http://localhost:5000/api/subscribers/add-subscriber", { email });
+      const response = await axios.post(
+        "https://startupathonbackend-production.up.railway.app/api/subscribers/add-subscriber",
+        { email }
+      );
       setMessage({ type: "success", text: "Subscribed successfully!" });
       setEmail(""); // Clear input after success
     } catch (error) {
@@ -260,7 +300,7 @@ function MainDashboard() {
       setLoading(false);
     }
   };
-
+  
   const startupCards =  [
     {
       "id": 1,

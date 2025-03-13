@@ -36,19 +36,37 @@ function ChallengesManagement() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  //  // Fetch challenges from the server
+  //  useEffect(() => {
+  //   setLoading(true); // Set loading to true before API call
+  //   axios.get('http://localhost:5000/api/challenges/get-challenges')
+  //     .then(response => {
+  //       setChallenges(response.data); // Set fetched challenges data
+  //       setLoading(false); // Set loading to false once data is fetched
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching challenges:', error);
+  //       setLoading(false); // Set loading to false even if there's an error
+  //     });
+  // }, []);
+
   // Fetch challenges from the server
   useEffect(() => {
-    setLoading(true); // Set loading to true before API call
-    axios.get('http://localhost:5000/api/challenges/get-challenges')
-      .then(response => {
+    const fetchChallenges = async () => {
+      setLoading(true); // Set loading to true before API call
+      try {
+        const response = await axios.get('https://startupathonbackend-production.up.railway.app/api/challenges/get-challenges');
         setChallenges(response.data); // Set fetched challenges data
-        setLoading(false); // Set loading to false once data is fetched
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error fetching challenges:', error);
-        setLoading(false); // Set loading to false even if there's an error
-      });
+      } finally {
+        setLoading(false); // Set loading to false once data is fetched or if there's an error
+      }
+    };
+  
+    fetchChallenges(); // Call the function to fetch challenges
   }, []);
+  
   function formatDateWithSuffix(dateString) {
     const date = new Date(dateString);
     const day = date.getDate();
@@ -86,9 +104,16 @@ function ChallengesManagement() {
     }
   
     try {
-      const response = await axios.post('http://localhost:5000/api/challenges/add-challenge', formDataObj, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
+
+      // const response = await axios.post('http://localhost:5000/api/challenges/add-challenge', formDataObj, {
+      //   headers: { 'Content-Type': 'multipart/form-data' }
+      // });
+
+      const response = await axios.post(
+        'https://startupathonbackend-production.up.railway.app/api/challenges/add-challenge', // Updated URL
+        formDataObj,
+        { headers: { 'Content-Type': 'multipart/form-data' } }
+      );
   
       if (response.data.success) {
         toast.success('Challenge added successfully!');
@@ -106,11 +131,13 @@ function ChallengesManagement() {
     }
   };
   
+  
 
-  // Function to fetch challenges again after adding a new one
   const fetchChallenges = () => {
     setLoading(true);
-    axios.get('http://localhost:5000/api/challenges/get-challenges')
+    // axios.get('http://localhost:5000/api/challenges/get-challenges')
+
+    axios.get('https://startupathonbackend-production.up.railway.app/api/challenges/get-challenges')
       .then(response => {
         setChallenges(response.data);
         setLoading(false);
@@ -120,7 +147,7 @@ function ChallengesManagement() {
         setLoading(false);
       });
   };
-
+  
   const handleStatusChange = (id, status) => {
     console.log("ID being passed:", id);  // Check if ID is being passed correctly
     
@@ -136,7 +163,9 @@ function ChallengesManagement() {
 
   const confirmStatusChange = () => {
     // Make the PUT request to update the status
-    axios.put(`http://localhost:5000/api/challenges/status/${challengeIdToUpdate}`, { status: newStatus })
+    // axios.put(`http://localhost:5000/api/challenges/status/${challengeIdToUpdate}`, { status: newStatus })
+
+    axios.put(`https://startupathonbackend-production.up.railway.app/api/challenges/status/${challengeIdToUpdate}`, { status: newStatus })
       .then((response) => {
         if (response.data.success) {
           toast.success('Challenge status updated successfully!');
@@ -152,6 +181,7 @@ function ChallengesManagement() {
         setStatusDialogOpen(false);
       });
   };
+  
   const cancelStatusChange = () => {
     // Revert the challenge status to its original value if the user cancels
     setChallenges(challenges.map(challenge =>

@@ -51,15 +51,25 @@ function AdminLogin() {
 
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/admin/login', credentials);
+      // const res = await axios.post('http://localhost:5000/api/admin/login', credentials);
+
+      const res = await axios.post(
+        "https://startupathonbackend-production.up.railway.app/api/admin/login",
+        credentials,
+        { withCredentials: true } // ✅ Ensures cookies and auth headers are included
+      );
+    
       if (res.data.success) {
-        localStorage.setItem('admin', true);
-        navigate('/admin/challenges');
-        toast.success('Login successful!', { closeButton: false });
+        localStorage.setItem("admin", true);
+        navigate("/admin/challenges");
+        toast.success("Login successful!", { closeButton: false });
       } else {
-        setError('Invalid credentials');
-        if (!toast.isActive('invalid-cred')) {
-          toast.error('Invalid credentials!', { toastId: 'invalid-cred', closeButton: false });
+        setError("Invalid credentials");
+        if (!toast.isActive("invalid-cred")) {
+          toast.error("Invalid credentials!", {
+            toastId: "invalid-cred",
+            closeButton: false,
+          });
         }
       }
     } catch (error) {

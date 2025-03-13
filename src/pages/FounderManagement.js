@@ -43,55 +43,112 @@ function FounderManagement() {
     setFormData({ ...formData, [e.target.name]: e.target.value }); 
   };
 
-  useEffect(() => { 
-    setLoading(true); 
-    axios.get('http://localhost:5000/api/founders/get-founders') 
-      .then(response => { 
-        setFounders(response.data); 
-        setLoading(false); 
-      }) 
-      .catch(error => { 
-        console.error('Error fetching founders:', error); 
-        setLoading(false); 
-      }); 
+  // useEffect(() => { 
+  //   setLoading(true); 
+  //   axios.get('http://localhost:5000/api/founders/get-founders') 
+  //     .then(response => { 
+  //       setFounders(response.data); 
+  //       setLoading(false); 
+  //     }) 
+  //     .catch(error => { 
+  //       console.error('Error fetching founders:', error); 
+  //       setLoading(false); 
+  //     }); 
+  // }, []);
+  useEffect(() => {
+    const fetchFounders = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          'https://startupathonbackend-production.up.railway.app/api/founders/get-founders'
+        );
+        setFounders(response.data);
+      } catch (error) {
+        console.error('Error fetching founders:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchFounders();
   }, []);
+  
+  // const handleSubmit = (e) => { 
+  //   e.preventDefault(); 
+  //   setIsSubmitting(true); 
 
-  const handleSubmit = (e) => { 
-    e.preventDefault(); 
-    setIsSubmitting(true); 
+  //   axios.post('http://localhost:5000/api/founders/add-founder', formData)
+  //     .then((response) => {
+  //       if (response.data.success) {
+  //         toast.success('Founder added successfully!');
+  //         closeForm(); 
+  //         fetchFounders(); 
+  //         resetForm(); 
+  //       } else {
+  //         toast.error('Failed to add founder. Please try again.');
+  //       }
+  //       setIsSubmitting(false); 
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error adding founder:', error);
+  //       toast.error('An error occurred while adding the founder.');
+  //       setIsSubmitting(false); 
+  //     });
+  // };
 
-    axios.post('http://localhost:5000/api/founders/add-founder', formData)
-      .then((response) => {
-        if (response.data.success) {
-          toast.success('Founder added successfully!');
-          closeForm(); 
-          fetchFounders(); 
-          resetForm(); 
-        } else {
-          toast.error('Failed to add founder. Please try again.');
-        }
-        setIsSubmitting(false); 
-      })
-      .catch((error) => {
-        console.error('Error adding founder:', error);
-        toast.error('An error occurred while adding the founder.');
-        setIsSubmitting(false); 
-      });
+  // const fetchFounders = () => { 
+  //   setLoading(true); 
+  //   axios.get('http://localhost:5000/api/founders/get-founders') 
+  //     .then(response => { 
+  //       setFounders(response.data); 
+  //       setLoading(false); 
+  //     }) 
+  //     .catch((error) => { 
+  //       console.error('Error fetching founders:', error); 
+  //       setLoading(false); 
+  //     }); 
+  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+  
+    try {
+      const response = await axios.post(
+        'https://startupathonbackend-production.up.railway.app/api/founders/add-founder',
+        formData
+      );
+  
+      if (response.data.success) {
+        toast.success('Founder added successfully!');
+        closeForm(); // Close the form
+        await fetchFounders(); // Refetch founders after adding
+        resetForm(); // Reset the form fields
+      } else {
+        toast.error('Failed to add founder. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error adding founder:', error);
+      toast.error('An error occurred while adding the founder.');
+    } finally {
+      setIsSubmitting(false); // Reset the submitting state
+    }
   };
-
-  const fetchFounders = () => { 
-    setLoading(true); 
-    axios.get('http://localhost:5000/api/founders/get-founders') 
-      .then(response => { 
-        setFounders(response.data); 
-        setLoading(false); 
-      }) 
-      .catch((error) => { 
-        console.error('Error fetching founders:', error); 
-        setLoading(false); 
-      }); 
+  
+  const fetchFounders = async () => {
+    setLoading(true);
+  
+    try {
+      const response = await axios.get(
+        'https://startupathonbackend-production.up.railway.app/api/founders/get-founders'
+      );
+      setFounders(response.data);
+    } catch (error) {
+      console.error('Error fetching founders:', error);
+    } finally {
+      setLoading(false);
+    }
   };
-
+  
   const handleStatusChange = (id, status) => { 
     const founder = founders.find(founder => founder.id === id); 
     if (founder) { 
@@ -102,23 +159,46 @@ function FounderManagement() {
     setStatusDialogOpen(true);
   };
 
-  const confirmStatusChange = () => { 
-    axios.put(`http://localhost:5000/api/founders/status/${founderIdToUpdate}`, { status: newStatus }) 
-      .then((response) => { 
-        if (response.data.success) { 
-          toast.success('Founder status updated successfully!'); 
-          fetchFounders(); 
-        } else { 
-          toast.error('Failed to update founder status.'); 
-        } 
-        setStatusDialogOpen(false); 
-      }) 
-      .catch((error) => { 
-        console.error('Error updating status:', error); 
-        toast.error('An error occurred while updating the status.'); 
-        setStatusDialogOpen(false); 
-      }); 
+  // const confirmStatusChange = () => { 
+  //   axios.put(`http://localhost:5000/api/founders/status/${founderIdToUpdate}`, { status: newStatus }) 
+  //     .then((response) => { 
+  //       if (response.data.success) { 
+  //         toast.success('Founder status updated successfully!'); 
+  //         fetchFounders(); 
+  //       } else { 
+  //         toast.error('Failed to update founder status.'); 
+  //       } 
+  //       setStatusDialogOpen(false); 
+  //     }) 
+  //     .catch((error) => { 
+  //       console.error('Error updating status:', error); 
+  //       toast.error('An error occurred while updating the status.'); 
+  //       setStatusDialogOpen(false); 
+  //     }); 
+  // };
+
+
+  const confirmStatusChange = async () => {
+    try {
+      const response = await axios.put(
+        `https://startupathonbackend-production.up.railway.app/api/founders/status/${founderIdToUpdate}`,
+        { status: newStatus }
+      );
+  
+      if (response.data.success) {
+        toast.success('Founder status updated successfully!');
+        await fetchFounders(); // Refetch founders to get the updated status
+      } else {
+        toast.error('Failed to update founder status.');
+      }
+    } catch (error) {
+      console.error('Error updating status:', error);
+      toast.error('An error occurred while updating the status.');
+    } finally {
+      setStatusDialogOpen(false);
+    }
   };
+  
 
   const cancelStatusChange = () => { 
     setFounders(founders.map(founder => founder.id === founderIdToUpdate ? { ...founder, status: originalStatus } : founder)); 

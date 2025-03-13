@@ -29,17 +29,25 @@ function SubscriberManagement() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:5000/api/subscribers/get-subscribers")
+    // .get("http://localhost:5000/api/subscribers/get-subscribers")
+    // .then((response) => {
+    //   console.log(response.data); // Debugging API response
+    //   setSubscribers(Array.isArray(response.data.subscribers) ? response.data.subscribers : []);
+    //   setLoading(false);
+    // })
+
+      .get("https://startupathonbackend-production.up.railway.app/api/subscribers/get-subscribers")
       .then((response) => {
         console.log(response.data); // Debugging API response
         setSubscribers(Array.isArray(response.data.subscribers) ? response.data.subscribers : []);
-        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching subscribers:", error);
+      })
+      .finally(() => {
         setLoading(false);
       });
-  }, []);
+}, []);
 
   return (
     <AdminSidebar>

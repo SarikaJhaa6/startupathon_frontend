@@ -37,58 +37,118 @@ function CompletersManagement() {
   };
 
   // Fetch completers from the server
+  // useEffect(() => {
+  //   setLoading(true); // Set loading to true before API call
+  //   axios.get('http://localhost:5000/api/completers/get-completers')
+  //     .then(response => {
+  //       setCompleters(response.data); // Set fetched completers data
+  //       setLoading(false); // Set loading to false once data is fetched
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching completers:', error);
+  //       setLoading(false); // Set loading to false even if there's an error
+  //     });
+  // }, []);
   useEffect(() => {
-    setLoading(true); // Set loading to true before API call
-    axios.get('http://localhost:5000/api/completers/get-completers')
-      .then(response => {
+    const fetchCompleters = async () => {
+      setLoading(true); // Set loading to true before API call
+      try {
+        const response = await axios.get('https://startupathonbackend-production.up.railway.app/api/completers/get-completers');
         setCompleters(response.data); // Set fetched completers data
-        setLoading(false); // Set loading to false once data is fetched
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error fetching completers:', error);
+      } finally {
         setLoading(false); // Set loading to false even if there's an error
-      });
+      }
+    };
+  
+    fetchCompleters();
   }, []);
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true); // Set submitting state to true
+
+  //   // Make the API call to add a new completer
+  //   axios.post('http://localhost:5000/api/completers/add-completer', formData)
+  //     .then((response) => {
+  //       if (response.data.success) {
+  //         // Notify user of success
+  //         toast.success('Completer added successfully!');
+  //         closeForm(); // Close the form
+  //         fetchCompleters(); // Refetch completers
+  //         resetForm(); // Reset the form fields
+  //       } else {
+  //         // Notify user of error
+  //         toast.error('Failed to add completer. Please try again.');
+  //       }
+  //       setIsSubmitting(false); // Reset the submitting state
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error adding completer:', error);
+  //       toast.error('An error occurred while adding the completer.');
+  //       setIsSubmitting(false); // Reset the submitting state
+  //     });
+  // };
+
+  // // Function to fetch completers again after adding a new one
+  // const fetchCompleters = () => {
+  //   setLoading(true);
+  //   axios.get('http://localhost:5000/api/completers/get-completers')
+  //     .then(response => {
+  //       setCompleters(response.data);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching completers:', error);
+  //       setLoading(false);
+  //     });
+  // };
+
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true); // Set submitting state to true
-
-    // Make the API call to add a new completer
-    axios.post('http://localhost:5000/api/completers/add-completer', formData)
-      .then((response) => {
-        if (response.data.success) {
-          // Notify user of success
-          toast.success('Completer added successfully!');
-          closeForm(); // Close the form
-          fetchCompleters(); // Refetch completers
-          resetForm(); // Reset the form fields
-        } else {
-          // Notify user of error
-          toast.error('Failed to add completer. Please try again.');
-        }
-        setIsSubmitting(false); // Reset the submitting state
-      })
-      .catch((error) => {
-        console.error('Error adding completer:', error);
-        toast.error('An error occurred while adding the completer.');
-        setIsSubmitting(false); // Reset the submitting state
-      });
+  
+    try {
+      const response = await axios.post(
+        'https://startupathonbackend-production.up.railway.app/api/completers/add-completer',
+        formData
+      );
+  
+      if (response.data.success) {
+        toast.success('Completer added successfully!');
+        closeForm(); // Close the form
+        await fetchCompleters(); // Refetch completers after successful addition
+        resetForm(); // Reset the form fields
+      } else {
+        toast.error('Failed to add completer. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error adding completer:', error);
+      toast.error('An error occurred while adding the completer.');
+    } finally {
+      setIsSubmitting(false); // Reset the submitting state
+    }
   };
-
+  
   // Function to fetch completers again after adding a new one
-  const fetchCompleters = () => {
+  const fetchCompleters = async () => {
     setLoading(true);
-    axios.get('http://localhost:5000/api/completers/get-completers')
-      .then(response => {
-        setCompleters(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching completers:', error);
-        setLoading(false);
-      });
+  
+    try {
+      const response = await axios.get(
+        'https://startupathonbackend-production.up.railway.app/api/completers/get-completers'
+      );
+      setCompleters(response.data);
+    } catch (error) {
+      console.error('Error fetching completers:', error);
+    } finally {
+      setLoading(false);
+    }
   };
+  
 
   const handleStatusChange = (id, status) => {
     // Find the completer by ID to store the original status before any changes
@@ -102,25 +162,48 @@ function CompletersManagement() {
     setStatusDialogOpen(true);
   };
 
-  const confirmStatusChange = () => {
-    // Make the PUT request to update the status
-    axios.put(`http://localhost:5000/api/completers/status/${completerIdToUpdate}`, { status: newStatus })
-      .then((response) => {
-        if (response.data.success) {
-          toast.success('Completer status updated successfully!');
-          fetchCompleters(); // Refetch completers to get the updated status
-        } else {
-          toast.error('Failed to update completer status.');
-        }
-        setStatusDialogOpen(false);
-      })
-      .catch((error) => {
-        console.error('Error updating status:', error);
-        toast.error('An error occurred while updating the status.');
-        setStatusDialogOpen(false);
-      });
-  };
+  // const confirmStatusChange = () => {
+  //   // Make the PUT request to update the status
+  //   axios.put(`http://localhost:5000/api/completers/status/${completerIdToUpdate}`, { status: newStatus })
+  //     .then((response) => {
+  //       if (response.data.success) {
+  //         toast.success('Completer status updated successfully!');
+  //         fetchCompleters(); // Refetch completers to get the updated status
+  //       } else {
+  //         toast.error('Failed to update completer status.');
+  //       }
+  //       setStatusDialogOpen(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error updating status:', error);
+  //       toast.error('An error occurred while updating the status.');
+  //       setStatusDialogOpen(false);
+  //     });
+  // };
 
+
+
+  const confirmStatusChange = async () => {
+    try {
+      const response = await axios.put(
+        `https://startupathonbackend-production.up.railway.app/api/completers/status/${completerIdToUpdate}`,
+        { status: newStatus }
+      );
+  
+      if (response.data.success) {
+        toast.success('Completer status updated successfully!');
+        await fetchCompleters(); // Refetch completers to get the updated status
+      } else {
+        toast.error('Failed to update completer status.');
+      }
+    } catch (error) {
+      console.error('Error updating status:', error);
+      toast.error('An error occurred while updating the status.');
+    } finally {
+      setStatusDialogOpen(false);
+    }
+  };
+  
   const cancelStatusChange = () => {
     // Revert the completer status to its original value if the user cancels
     setCompleters(completers.map(completer =>
