@@ -558,14 +558,44 @@ function MainDashboard() {
       </div>
 
 
-      {/* Challenges Section */}
-      <img 
-  src={challenge.image 
-    ? `https://startupathonbackend-production.up.railway.app${challenge.image}` 
-    : "N/A"} 
-  alt={challenge.title} 
-/>
-
+      <div className="challenges-section">
+         <h2>Ongoing Startupathon Challenges</h2>
+         <p>Start your journey—tackle live challenges, earn equity, and lead the future.</p>
+         
+         {challenges.length === 0 ? (
+           <div className="no-challenges">No ongoing challenges at the moment. Check back soon!</div>
+         ) : (
+           <div className="challenges-grid">
+             {challenges.map((challenge) => (
+           <div key={challenge.id} className="challenge-card">
+             <span className="border-span"></span>
+   <span className="border-span"></span>
+   <span className="border-span"></span>
+   <span className="border-span"></span>
+   
+   <div className="card-icon">
+   {/* Use the image uploaded, otherwise fall back to random image */}
+   <img 
+     src={challenge.image ? `${challenge.image}` : `/randomImages/logo${Math.floor(Math.random() * 9) + 1}.png`} 
+     alt={challenge.title} 
+   />
+ </div>
+           <h3>{challenge.title}</h3>
+           <p className="funding">
+             Initial Funding Offered: <strong>${challenge.funding.toLocaleString()}</strong>
+           </p>
+           <p className="description">{challenge.description}</p>
+           <p className="deadline" id="deadlinepara">
+   <img src="/images/deadline.png" alt="Deadline Icon" className="deadline-icon" />
+   <span><strong>Deadline approaching!</strong> Apply by {new Date(challenge.deadline).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}!</span>
+ </p>
+  <button className="view-details-btn">View Challenge Details</button>
+         </div>
+         
+             ))}
+           </div>
+         )}
+       </div>
       <div id='startupathon-guide' className="section-timeline-2">
       <div className="container-9">
         <div className="pro-sec-intro-wrap">
